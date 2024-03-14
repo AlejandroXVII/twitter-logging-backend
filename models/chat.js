@@ -11,6 +11,7 @@ const chatSchema = new Schema({
 				required: true,
 			},
 			text: { type: String, required: true },
+			date: { type: Date, required: true },
 		},
 	],
 });

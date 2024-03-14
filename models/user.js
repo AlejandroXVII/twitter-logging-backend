@@ -18,7 +18,6 @@ const userSchema = new Schema({
 	],
 	tweets: [
 		{
-			user_id: { type: Schema.Types.ObjectId, ref: "User" },
 			tweet_id: { type: Schema.Types.ObjectId, ref: "Tweet" },
 		},
 	],
@@ -34,7 +33,6 @@ const userSchema = new Schema({
 	],
 	likes: [
 		{
-			user_id: { type: Schema.Types.ObjectId, ref: "User" },
 			tweet_id: { type: Schema.Types.ObjectId, ref: "Tweet" },
 		},
 	],
