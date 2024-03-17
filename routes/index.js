@@ -20,7 +20,7 @@ function verifyToken(req, res, next) {
 
 router.get("/users", user_controller.user_list_get);
 
-router.get("/users/:id", user_controller.user_get);
+router.get("/users/:username", user_controller.user_get);
 
 router.post("/users/", user_controller.user_post);
 
@@ -30,11 +30,20 @@ router.delete("/users/:id", user_controller.user_delate);
 
 //CHATS ROUTERS
 //THE BODY NEED A TO AND A FROM AS WELL AS THE MESSAGE TEXT
+
 router.get("/chats", chat_controller.chat_list_get);
 
 router.get("/chats/:id", chat_controller.chat_get);
 
 router.post("/chats", chat_controller.chat_post);
+
+//TWEETS ROUTERS
+
+router.get("/tweets", tweet_controller.all_tweet_list_get);
+
+router.get("/tweets/:username/", tweet_controller.tweet_list_get);
+
+router.get("/tweets/:user/:id", tweet_controller.tweet_get);
 
 // LOGIN ROUTERS
 

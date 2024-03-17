@@ -13,7 +13,7 @@ exports.user_list_get = asyncHandler(async (req, res, next) => {
 
 //GET AN USER WITH ID
 exports.user_get = asyncHandler(async (req, res, next) => {
-	const user = await User.findById(req.params.id).exec();
+	const user = await User.findOne({ username: req.body.username }).exec();
 	return res.send(user);
 });
 
