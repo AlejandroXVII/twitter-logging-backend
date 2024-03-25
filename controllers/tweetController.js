@@ -30,7 +30,7 @@ exports.tweet_get = asyncHandler(async (req, res, next) => {
 		res.send(400);
 		return;
 	} else {
-		const tweets = await Tweet.findById(req.body.id).exec();
-		return res.send(tweets);
+		const tweet = await Tweet.findById(req.body.id).exec();
+		return res.send(tweet);
 	}
 });

@@ -24,12 +24,27 @@ exports.user_post = asyncHandler(async (req, res, next) => {
 		res.send(400);
 		return;
 	} else {
+		console.log(req.body);
+		if (req.body.sign_up_method === "google") {
+			const user = new User({
+				first_name: req.body.first_name,
+				last_name: req.body.last_name,
+				email: req.body.email,
+				avatar: req.body.avatar,
+				sign_up_method: req.body.sign_up_method,
+			});
+			console.log(user);
+			await user.save();
+			return res.status(200).json(user);
+		}
 		bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
 			const user = new User({
-				full_name: req.body.full_name,
+				first_name: req.body.first_name,
+				last_name: req.body.last_name,
 				username: req.body.username,
 				email: req.body.email,
 				password: hashedPassword,
+				sign_up_method: req.body.sign_up_method,
 			});
 			await user.save();
 			return res.status(200).json(user);
@@ -43,6 +58,39 @@ exports.user_put = asyncHandler(async (req, res, next) => {
 
 exports.user_delate = asyncHandler(async (req, res, next) => {
 	return res.send(403);
+});
+
+exports.user_email_exists = asyncHandler(async (req, res, next) => {
+	console.log("At list im been executing");
+	try {
+		const userExists = await User.findOne({
+			email: req.params.email,
+		}).exec();
+
+		if (userExists) {
+			res.status(200).send({ exists: true });
+		} else {
+			res.status(200).send({ exists: false });
+		}
+	} catch (error) {
+		res.status(500).send({ error: "Internal Server Error" });
+	}
+});
+
+exports.user_username_exists = asyncHandler(async (req, res, next) => {
+	try {
+		const userExists = await User.findOne({
+			username: req.params.username,
+		}).exec();
+
+		if (userExists) {
+			res.status(200).send({ exists: true });
+		} else {
+			res.status(404).send({ exists: false });
+		}
+	} catch (error) {
+		res.status(500).send({ error: "Internal Server Error" });
+	}
 });
 
 exports.login_post = asyncHandler(async (req, res, next) => {

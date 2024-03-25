@@ -5,11 +5,13 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
 	first_name: { type: String, required: true },
 	last_name: { type: String, required: true },
-	username: { type: String, required: true },
+	username: { type: String, required: false },
 	email: { type: String, required: true },
 	location: { type: String, required: false },
-	birthday: { type: Date, required: true },
-	password: { type: String, required: true },
+	birthday: { type: Date, required: false },
+	avatar: { type: String, required: false },
+	sign_up_method: { type: String, required: true },
+	password: { type: String, required: false },
 	chats: [
 		{
 			user_id: { type: Schema.Types.ObjectId, ref: "User" },
